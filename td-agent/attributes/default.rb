@@ -1,8 +1,7 @@
 default["td_agent"]["api_key"] = ''
 
-node[:td_agent][:plugins] = [
+node["td_agent"]["plugins"] = [
   "s3",
-  { "rewrite" => { "version" => "0.5.1" } }
 ]
 
 default["td_agent"]["uid"] = nil
