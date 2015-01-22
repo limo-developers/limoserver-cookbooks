@@ -1,6 +1,6 @@
 default["td_agent"]["api_key"] = ''
 
-default["td_agent"]["plugins"] = []
+default["td_agent"]["plugins"] = [] # TODO can't use this..
 
 default["td_agent"]["uid"] = nil
 default["td_agent"]["gid"] = nil
