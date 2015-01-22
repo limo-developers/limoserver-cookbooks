@@ -41,44 +41,44 @@
 #   action :create
 # end
 
-case node['platform']
-when "ubuntu"
-  dist = node['lsb']['codename']
-  source =
-    if major.nil? || major == '1'
-      # version 1.x or no version
-      if dist == 'precise'
-        'http://packages.treasuredata.com/precise/'
-      else
-        'http://packages.treasuredata.com/debian/'
-      end
-    else
-      # version 2.x or later
-      "http://packages.treasuredata.com/#{major}/ubuntu/#{dist}/"
-    end
+# case node['platform']
+# when "ubuntu"
+#   dist = node['lsb']['codename']
+#   source =
+#     if major.nil? || major == '1'
+#       # version 1.x or no version
+#       if dist == 'precise'
+#         'http://packages.treasuredata.com/precise/'
+#       else
+#         'http://packages.treasuredata.com/debian/'
+#       end
+#     else
+#       # version 2.x or later
+#       "http://packages.treasuredata.com/#{major}/ubuntu/#{dist}/"
+#     end
 
-  apt_repository "treasure-data" do
-    uri source
-    distribution dist
-    components ["contrib"]
-    key "http://packages.treasuredata.com/GPG-KEY-td-agent"
-    action :add
-  end
-when "centos", "redhat", "amazon"
-  source =
-    if major.nil? || major == '1'
-      "http://packages.treasuredata.com/redhat/$basearch"
-    else
-      # version 2.x or later
-      "http://packages.treasuredata.com/2/redhat/$releasever/$basearch"
-    end
+#   apt_repository "treasure-data" do
+#     uri source
+#     distribution dist
+#     components ["contrib"]
+#     key "http://packages.treasuredata.com/GPG-KEY-td-agent"
+#     action :add
+#   end
+# when "centos", "redhat", "amazon"
+#   source =
+#     if major.nil? || major == '1'
+#       "http://packages.treasuredata.com/redhat/$basearch"
+#     else
+#       # version 2.x or later
+#       "http://packages.treasuredata.com/2/redhat/$releasever/$basearch"
+#     end
 
-  yum_repository "treasure-data" do
-    url source
-    gpgkey "http://packages.treasuredata.com/GPG-KEY-td-agent"
-    action :add
-  end
-end
+#   yum_repository "treasure-data" do
+#     url source
+#     gpgkey "http://packages.treasuredata.com/GPG-KEY-td-agent"
+#     action :add
+#   end
+# end
 
 template "/etc/fluent/fluent.conf" do
   mode "0644"
