@@ -1,0 +1,59 @@
+<% if node['fluentd']['default_config'] %>
+<match driver.position>
+  type s3
+  aws_key_id <%= @env["AWS_ACCESS_KEY"] %>
+  aws_sec_key <%= @env["AWS_SECRET_ACCESS_KEY"] %>
+  s3_bucket <%= @env['S3_BUCKET_NAME'] %>
+  s3_region ap-northeast-1
+  s3_object_key_format %{path}%{time_slice}_%{index}.%{file_extension}
+  path positions
+  buffer_type file
+  buffer_path /var/log/fluent/position
+  flush_interval 30m
+  format ltsv
+
+  time_slice_format %Y%m%d-%H
+  utc
+</match>
+
+## match tag=debug.** and dump to console
+<match debug.**>
+  type stdout
+</match>
+
+####
+## Source descriptions:
+##
+
+## built-in TCP input
+## @see http://docs.fluentd.org/articles/in_forward
+<source>
+  type forward
+  port <%= node['fluentd']['in_forward']['port'] %>
+  bind <%= node['fluentd']['in_forward']['bind'] %>
+</source>
+
+## built-in UNIX socket input
+#<source>
+#  type unix
+#</source>
+
+<% if node["fluentd"]["in_http"]["enable_api"] %>
+  HTTP input
+  POST http://localhost:8888/<tag>?json=<json>
+  POST http://localhost:8888/td.myapp.login?json={"user"%3A"me"}
+  # @see http://docs.fluentd.org/articles/in_http
+<source>
+  type http
+  port <%= node['fluentd']['in_http']['port'] %>
+  bind <%= node['fluentd']['in_http']['bind'] %>
+</source>
+<% end %>
+
+## live debugging agent
+<source>
+  type debug_agent
+  bind 127.0.0.1
+  port 24230
+</source>
+<% end %>
