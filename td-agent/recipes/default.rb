@@ -116,6 +116,10 @@ node["td_agent"]["plugins"].each do |plugin|
   end
 end
 
+execute "install fluent-plugin-s3 gem" do
+  command "sudo /usr/lib/fluent/ruby/bin/fluent-gem install fluent-plugin-s3"
+end
+
 service "td-agent" do
   action [ :enable, :start ]
 end
