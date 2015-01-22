@@ -12,7 +12,8 @@ recipe           "td-agent", "td-agent configuration"
 end
 
 depends 'apt'
-depends 'yum'
+# TODO add yum dependency if need
+# depends 'yum'
 
 attribute "td_agent/api_key",
   :display_name => "Treasure Data ApiKey",
