@@ -1,8 +1,6 @@
 default["td_agent"]["api_key"] = ''
 
-node["td_agent"]["plugins"] = [
-  "s3",
-]
+default["td_agent"]["plugins"] = ["s3"]
 
 default["td_agent"]["uid"] = nil
 default["td_agent"]["gid"] = nil
