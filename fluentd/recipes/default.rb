@@ -80,26 +80,25 @@
 #   end
 # end
 
+execute "install fluentd and plugins" do
+  command "sudo gem install fluentd"
+  command "sudo fluent-gem install fluent-plugin-s3"
+end
+
+directory "/etc/fluent" do
+  owner "root"
+  group "root"
+  mode "0755"
+  action :create
+end
+
 template "/etc/fluent/fluent.conf" do
   mode "0644"
   source "fluent.conf.erb"
   notifies :restart, "service[fluentd]"
 end
 
-# package "fluentd" do
-#   if node["fluentd"]["pinning_version"]
-#     action :install
-#     version node["fluentd"]["version"]
-#   else
-#     action :upgrade
-#   end
-# end
-
-execute "install fluentd and plugins" do
-  command "sudo gem install fluentd"
-  command "sudo fluent-gem install fluent-plugin-s3"
-end
-
+# TODO init.d not exist
 service "fluentd" do
   action [ :enable, :start ]
 end
