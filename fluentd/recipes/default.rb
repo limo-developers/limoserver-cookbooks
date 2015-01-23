@@ -83,7 +83,7 @@
 template "/etc/fluent/fluent.conf" do
   mode "0644"
   source "fluent.conf.erb"
-  notifies :restart, "service[fluent]"
+  notifies :restart, "service[fluentd]"
 end
 
 # package "fluentd" do
