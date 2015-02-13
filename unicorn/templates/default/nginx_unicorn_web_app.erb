@@ -72,6 +72,10 @@ server {
     deny all;
   }
 
+  location ~^\/phppath {
+    deny all;
+  }
+
   location /hudson/script {
     deny all;
   }
