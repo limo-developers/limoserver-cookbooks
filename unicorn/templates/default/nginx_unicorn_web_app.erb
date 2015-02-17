@@ -60,23 +60,11 @@ server {
 
   # Written by rabierre@gmail.com
   # Block unauthorized request
-  location ~ ^\/cgi-bin\/ {
+  location ~ ^\/(cgi-bin/|phppath/|hudson/script|manager/html) {
     deny all;
   }
 
-  location /manager/html {
-    deny all;
-  }
-
-  location ~ \.php$ {
-    deny all;
-  }
-
-  location ~^\/phppath {
-    deny all;
-  }
-
-  location /hudson/script {
+  location ~* \.(xml|txt|php|pl)$ {
     deny all;
   }
 }
