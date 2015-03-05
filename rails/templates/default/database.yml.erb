@@ -14,21 +14,20 @@
  port: <%= @database[:port].to_i.inspect %>
 <% end -%>
 
-<% if @database[:ext_database] -%>
 location-<%= env %>:
- adapter: <%= @database[:ext_database][:adapter].to_s.inspect %>
- database: <%= @database[:ext_database][:database].to_s.inspect %>
- encoding: <%= (@database[:ext_database][:encoding] || 'utf8').to_s.inspect %>
- host: <%= (@database[:ext_database][:host] || 'localhost').to_s.inspect %>
- username: <%= @database[:ext_database][:username].to_s.inspect %>
- password: <%= @database[:ext_database][:password].to_s.inspect %>
- reconnect: <%= @database[:ext_database][:reconnect] ? 'true' : 'false' %>
-<% if @database[:ext_database][:pool] -%>
- pool: <%= @database[:ext_database][:pool].to_i.inspect %>
+ adapter: <%= @ext_database[:adapter].to_s.inspect %>
+ database: <%= @ext_database[:database].to_s.inspect %>
+ encoding: <%= (@ext_database[:encoding] || 'utf8').to_s.inspect %>
+ host: <%= (@ext_database[:host] || 'localhost').to_s.inspect %>
+ username: <%= @ext_database[:username].to_s.inspect %>
+ password: <%= @ext_database[:password].to_s.inspect %>
+ reconnect: <%= @ext_database[:reconnect] ? 'true' : 'false' %>
+<% if @ext_database[:pool] -%>
+ pool: <%= @ext_database[:pool].to_i.inspect %>
 <% end -%>
-<% if @database[:ext_database][:port] -%>
- port: <%= @database[:ext_database][:port].to_i.inspect %>
+<% if @ext_database[:port] -%>
+ port: <%= @ext_database[:port].to_i.inspect %>
 <% end -%>
-<% end -%>
+
 
 <% end %>
