@@ -14,7 +14,7 @@
  port: <%= @database[:port].to_i.inspect %>
 <% end -%>
 
-<% if @ext_database[:ext_database] -%>
+<% if @database[:ext_database] -%>
 location-<%= env %>:
  adapter: <%= @database[:ext_database][:adapter].to_s.inspect %>
  database: <%= @database[:ext_database][:database].to_s.inspect %>
