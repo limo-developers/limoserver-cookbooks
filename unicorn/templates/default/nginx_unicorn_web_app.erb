@@ -58,13 +58,13 @@ server {
     root <%= @application[:absolute_document_root] %>;
   }
 
-  # Written by rabierre@gmail.com
-  # Block unauthorized request
-  location ~ ^\/(cgi-bin/|phppath/|hudson/script|manager/html) {
+  ### Written by rabierre@gmail.com
+  ### Block unauthorized request
+  location = ^\/(cgi-bin|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
     deny all;
   }
 
-  location ~* \.(xml|txt|php|pl|tpl|bs)$ {
+  location = \.(xml|txt|php|pl|tpl|bs)$ {
     deny all;
   }
 }
@@ -118,6 +118,16 @@ server {
   error_page 500 502 503 504 /500.html;
   location = /500.html {
     root <%= @application[:absolute_document_root] %>;
+  }
+
+  ### Written by rabierre@gmail.com
+  ### Block unauthorized request
+  location = ^\/(cgi-bin|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
+    deny all;
+  }
+
+  location = \.(xml|txt|php|pl|tpl|bs)$ {
+    deny all;
   }
 }
 <% end %>
