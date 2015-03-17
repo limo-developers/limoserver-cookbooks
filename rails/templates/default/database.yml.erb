@@ -15,7 +15,7 @@
 <% end -%>
 
 <% if @database[:ext_database] -%>
-location_<%= env %>:
+limoserver_<%= env %>:
  adapter: <%= @database[:ext_database][:adapter].to_s.inspect %>
  database: <%= @database[:ext_database][:database].to_s.inspect %>
  encoding: <%= (@database[:ext_database][:encoding] || 'utf8').to_s.inspect %>
