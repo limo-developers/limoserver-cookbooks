@@ -122,11 +122,11 @@ server {
 
   ### Written by rabierre@gmail.com
   ### Block unauthorized request
-  location = ^\/(cgi-bin|cgi-sys|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
+  location ~ ^\/(cgi-bin|cgi-sys|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
     deny all;
   }
 
-  location = \.(xml|txt|php|pl|tpl|bs|cgi|action)$ {
+  location ~ \.(xml|txt|php|pl|tpl|bs|cgi|action)$ {
     deny all;
   }
 }
