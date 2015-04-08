@@ -2,6 +2,17 @@ upstream unicorn_<%= @application[:domains].first %> {
  server unix:<%= @application[:deploy_to]%>/shared/sockets/unicorn.sock fail_timeout=0;
 }
 
+<% unauthorized_request_filter = <<-eos
+  location ~ ^\/(cgi-bin|cgi-sys|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
+    deny all;
+  }
+
+  location ~ \.(xml|txt|php|pl|tpl|bs|cgi|action|jsp)$ {
+    deny all;
+  }
+eos
+%>
+
 server {
   listen 80;
   server_name <%= @application[:domains].join(" ") %> <%= node[:hostname] %>;
@@ -60,13 +71,7 @@ server {
 
   ### Written by rabierre@gmail.com
   ### Block unauthorized request
-  location = ^\/(cgi-bin|cgi-sys|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
-    deny all;
-  }
-
-  location = \.(xml|txt|php|pl|tpl|bs|cgi|action)$ {
-    deny all;
-  }
+  <%= unauthorized_request_filter %>
 }
 
 <% if @application[:ssl_support] %>
@@ -122,12 +127,6 @@ server {
 
   ### Written by rabierre@gmail.com
   ### Block unauthorized request
-  location ~ ^\/(cgi-bin|cgi-sys|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
-    deny all;
-  }
-
-  location ~ \.(xml|txt|php|pl|tpl|bs|cgi|action)$ {
-    deny all;
-  }
+  <%= unauthorized_request_filter %>
 }
 <% end %>
