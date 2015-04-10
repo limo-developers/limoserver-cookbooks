@@ -3,7 +3,11 @@ upstream unicorn_<%= @application[:domains].first %> {
 }
 
 <% unauthorized_request_filter = <<-eos
-  location ~ ^\/(cgi-bin|cgi-sys|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
+  location = /rom-0 {
+    deny all;
+  }
+
+  location ~ ^\/(cgi-bin|sys-cgi|cgi-sys|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
     deny all;
   }
 
