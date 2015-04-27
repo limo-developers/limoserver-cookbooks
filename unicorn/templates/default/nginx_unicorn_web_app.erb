@@ -7,6 +7,10 @@ upstream unicorn_<%= @application[:domains].first %> {
     deny all;
   }
 
+  location = /muieblackcat {
+    deny all;
+  }
+
   location ~ ^\/(cgi-bin|sys-cgi|cgi-sys|phppath|phpMyAdmin|phpmyadmin|hudson/script|manager/html) {
     deny all;
   }
