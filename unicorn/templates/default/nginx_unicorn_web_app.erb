@@ -15,7 +15,7 @@ upstream unicorn_<%= @application[:domains].first %> {
     deny all;
   }
 
-  location ~ \.(xml|txt|php|pl|tpl|bs|cgi|action|jsp)$ {
+  location ~ \.(xml|txt|php|pl|tpl|bs|cgi|action|jsp|asp)$ {
     deny all;
   }
 eos
