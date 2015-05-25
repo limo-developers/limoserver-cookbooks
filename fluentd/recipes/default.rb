@@ -81,8 +81,9 @@
 # end
 
 execute "install fluentd and plugins" do
-  command "sudo gem install fluentd"
-  command "sudo fluent-gem install fluent-plugin-s3"
+  command "gem install fluentd"
+  command "fluent-gem install fluent-plugin-s3"
+  command "fluentd --setup /etc/fluent"
 end
 
 directory "/etc/fluent" do
@@ -95,10 +96,14 @@ end
 template "/etc/fluent/fluent.conf" do
   mode "0644"
   source "fluent.conf.erb"
-  notifies :restart, "service[fluentd]"
+  # notifies :restart, "service[fluentd]"
+end
+
+execute "run fluentd" do
+  command "fluentd -c /etc/fluent/fluent.conf -vv &"
 end
 
 # TODO init.d not exist
-service "fluentd" do
-  action [ :enable, :start ]
-end
+# service "fluentd" do
+#   action [ :enable, :start ]
+# end
